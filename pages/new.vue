@@ -1,9 +1,46 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+const router = useRouter();
+const config = useRuntimeConfig();
+const trainerName = ref('');
+const trainers = ref({data:[]})
+const safeTrainerName = computed(() => trimAvoidCharacters(trainerName.value));
+const valid = computed(() => safeTrainerName.value.length > 0);
+const onSubmit = async () => {
+  const response = await $fetch("/api/trainer", {
+    baseURL: config.public.backendOrigin,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: safeTrainerName.value,
+    }),
+  }).catch((e) => e);
+  if (response instanceof Error) return;
+  trainers.value.data.push({"name":safeTrainerName.value})
+  router.push(`/trainer/${safeTrainerName.value}`);
+};
+</script>
 
 <template>
   <div>
     <h1>あたらしくはじめる</h1>
-    <form @submit.prevent></form>
+    <form @submit.prevent>
+      <div class="form-example">
+        <label for="name">トレーナー名を入力する: </label>
+        <input id="name" v-model="trainerName" type="text" name="name" required />
+      </div>
+      <div class="add-button-example">
+        <input type="button" value="トレーナーを追加する" :disabled="!valid" @click="onSubmit" />
+      </div>
+    </form>
+    <p>{{ safeTrainerName }}</p>
+    <ul>
+      <li v-for="trainer in trainers.data" :key="trainer">
+        {{ trainer }}
+      </li>
+    </ul>
   </div>
 </template>
 
