@@ -106,6 +106,7 @@ router.post("/trainer/:trainerName", async (req, res, next) => {
 // ポケモンの追加
 router.post("/trainer/:trainerName/pokemon", async (req, res, next) => {
   try {
+    console.log("start /pokemon");
     const { trainerName } = req.params;
 
     // TODO: リクエストボディにポケモン名が含まれていなければ400を返す
@@ -121,6 +122,7 @@ router.post("/trainer/:trainerName/pokemon", async (req, res, next) => {
     const result = await upsertTrainer(trainerName, { pokemons: [pokemon] });
     res.status(result["$metadata"].httpStatusCode).send(result);
   } catch (err) {
+    console.log("err /pokemon");
     next(err);
   }
 });
