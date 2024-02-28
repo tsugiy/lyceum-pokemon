@@ -16,7 +16,6 @@ router.get("/trainers", async (_req, res, next) => {
   
     // TODO: 期待するレスポンスボディに変更する
     const trainerNames = trainers.map(({Key}) => Key.replace(/\.json$/, ""));
-    console.log(trainerNames)
     
     res.send(trainerNames);
   } catch (err) {
