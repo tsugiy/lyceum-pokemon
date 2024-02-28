@@ -52,7 +52,6 @@
       <GamifyItem v-for="pokemon in trainer.pokemons" :key="pokemon.id">
         <span class="pokemon-name">{{ pokemon.nickname || pokemon.name }}</span>
         <GamifyButton @click="onOpenNickname(pokemon)">ニックネームをつける</GamifyButton>
-        <GamifyButton @click="onOpenRelease(pokemon)">はかせにおくる</GamifyButton>
       </GamifyItem>
     </GamifyList>
     <GamifyDialog
@@ -75,9 +74,7 @@
           <GamifyButton @click="onCloseNickname">キャンセル</GamifyButton>
         </GamifyItem>
         <GamifyItem>
-          <GamifyButton @click="onNickname(nicknameDialog)"
-            >けってい</GamifyButton
-          >
+          <GamifyButton @click="onNickname(nicknameDialog)">けってい</GamifyButton>
         </GamifyItem>
       </GamifyList>
     </GamifyDialog>

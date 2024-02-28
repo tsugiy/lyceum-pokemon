@@ -1,6 +1,5 @@
 <script setup>
   const {data: trainers} = await useTrainers();
-  const {data: hello} = await useHello();
   //const trainers = ["trainer001", "trainer002"];
       
 </script>
@@ -14,6 +13,5 @@
       </GamifyItem>
     </GamifyList>
     <p>{{ trainers }}</p>
-    <p>{{ hello }}</p>
   </div>
 </template>
