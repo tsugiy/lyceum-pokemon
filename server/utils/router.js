@@ -115,7 +115,7 @@ router.post("/trainer/:trainerName/pokemon", async (req, res, next) => {
 
     const pokemon = await findPokemon(req.body.name);
     const {order, name, sprites: {front_default},} = pokemon;
-    const trainer = findTrainer(trainerName);
+    const trainer = await findTrainer(trainerName);
     trainer.pokemons.push({id:(trainer.pokemons[trainer.pokemons.length - 1]?.id ?? 0) + 1, nickname:"", order, name, sprites: {front_default},});
 
     // TODO: 削除系 API エンドポイントを利用しないかぎりポケモンは保持する
